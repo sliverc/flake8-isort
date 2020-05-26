@@ -55,11 +55,13 @@ class Flake8Isort(object):
         else:
             file_path = None
         with OutputCapture() as buffer:
+            print('Verbose')
             sort_result = SortImports(
                 file_path=file_path,
                 file_contents=''.join(self.lines),
                 check=True,
                 show_diff=True,
+                verbose=True
             )
         traceback = self._format_isort_output(buffer)
 
@@ -82,6 +84,7 @@ class Flake8Isort(object):
             tuple: A tuple of the specific isort line number and message.
         """
         if sort_result.skipped:
+            print('Following file got skipped: ' + sort_result.file_path)
             return
 
         self._fixup_sortimports_wrapped(sort_result)
