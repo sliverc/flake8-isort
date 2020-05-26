@@ -55,7 +55,6 @@ class Flake8Isort(object):
         else:
             file_path = None
         with OutputCapture() as buffer:
-            print('Verbose')
             sort_result = SortImports(
                 file_path=file_path,
                 file_contents=''.join(self.lines),
@@ -114,6 +113,8 @@ class Flake8Isort(object):
 
     def _format_isort_output(self, isort_buffer):
         filtering_out = ('+++', '---', '@@', 'ERROR:')
+
+        print(isort_buffer.output.getvalue())
 
         valid_lines = ['']
         valid_lines += [
